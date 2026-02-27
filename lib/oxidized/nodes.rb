@@ -88,8 +88,8 @@ module Oxidized
         n.from = opt['from']
         # set last job to nil so that the node is picked for immediate update
         n.last = nil
-        # set collect_interval_zero to true so that the node will not be skipped with interval 0
-        n.collect_interval_zero = true
+        # set next to true so that the node will not be skipped with interval 0
+        n.next = true
         put n
         jobs.increment if Oxidized.config.next_adds_job?
       end

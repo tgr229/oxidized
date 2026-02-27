@@ -23,13 +23,8 @@ module Oxidized
                      "#{@jobs_done} of #{@nodes.size}"
         # ask for next node in queue non destructive way
         nextnode = @nodes.first
-        if Oxidized.config.interval.zero?
-          unless nextnode.collect_interval_zero
-            logger.debug "Interval 0, job skipped"
-            break
-          end
-          nextnode.collect_interval_zero = false
-        end        
+        break if Oxidized.config.interval.zero? and not nextnode.next
+        nextnode.next = false
         unless nextnode.last.nil?
           break if nextnode.last.end + Oxidized.config.interval > Time.now.utc
         end
